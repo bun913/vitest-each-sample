@@ -2,7 +2,7 @@ export interface Distance {
   toMeters(): number
 }
 
-class Meters implements Distance {
+export class Meters implements Distance {
   constructor(private value: number) {}
 
   toMeters(): number {
@@ -10,7 +10,7 @@ class Meters implements Distance {
   }
 }
 
-class Killometers implements Distance {
+export class Killometers implements Distance {
   constructor(private value: number) {}
 
   toMeters(): number {

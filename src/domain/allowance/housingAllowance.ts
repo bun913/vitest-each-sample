@@ -7,11 +7,11 @@ export class HouseAllowance {
   getAllowance(): Money {
     const meters = this.distance.toMeters()
     // 会社からの距離が2000m以下なら10,000円
-    if (meters <= 20000) {
+    if (meters <= 2000) {
       return new Money(10000)
     }
     // 会社からの距離が5000m以下なら5,000円
-    if (meters <= 50000) {
+    if (meters <= 5000) {
       return new Money(5000)
     }
     // それ以外は0円
