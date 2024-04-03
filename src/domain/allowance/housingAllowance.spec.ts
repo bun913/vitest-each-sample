@@ -6,17 +6,22 @@ describe("HouseAllowance", () => {
   // 2km以下で10000円を返す同値クラス
   it.each([
     {
-      distance: new Killometers(2),
+      distance: new Killometers(0),
       expected: new Money(10000),
-      distanceStr: "2km",
+      distanceStr: "0m",
     },
     {
-      distance: new Killometers(1.5),
+      distance: new Killometers(1),
       expected: new Money(10000),
-      distanceStr: "1.5km",
+      distanceStr: "1000m",
+    },
+    {
+      distance: new Killometers(2),
+      expected: new Money(10000),
+      distanceStr: "2000m",
     },
   ])(
-    `returns 10000 when the distance is less than 20000m(distance: $distanceStr)`,
+    `returns 10000 when the distance is less or equal than 2000m(distance: $distanceStr)`,
     ({ distance, expected }) => {
       const sutHouseAllowance = new HouseAllowance(distance)
       expect(sutHouseAllowance.getAllowance()).toEqual(expected)
@@ -26,17 +31,22 @@ describe("HouseAllowance", () => {
   // 5km以下で5000円を返す同値クラス
   it.each([
     {
-      distance: new Killometers(5),
+      distance: new Meters(2001),
       expected: new Money(5000),
-      distanceStr: "5km",
+      distanceStr: "2001m",
     },
     {
-      distance: new Killometers(4.5),
+      distance: new Killometers(3),
       expected: new Money(5000),
-      distanceStr: "4.5km",
+      distanceStr: "3000m",
+    },
+    {
+      distance: new Killometers(5),
+      expected: new Money(5000),
+      distanceStr: "5000m",
     },
   ])(
-    `returns 5000 when the distance is less than 50000m(distance: $distanceStr)`,
+    `returns 5000 when the distance is less or equal than 5000m(distance: $distanceStr)`,
     ({ distance, expected }) => {
       const sutHouseAllowance = new HouseAllowance(distance)
       expect(sutHouseAllowance.getAllowance()).toEqual(expected)
@@ -46,17 +56,17 @@ describe("HouseAllowance", () => {
   // 5km以上で0円を返す同値クラス
   it.each([
     {
-      distance: new Killometers(5.1),
+      distance: new Meters(5001),
       expected: new Money(0),
-      distanceStr: "5.1km",
+      distanceStr: "5001m",
     },
     {
       distance: new Killometers(10),
       expected: new Money(0),
-      distanceStr: "10km",
+      distanceStr: "10000m",
     },
   ])(
-    `returns 0 when the distance is more than 50000m(distance: $distanceStr)`,
+    `returns 0 when the distance is more than 5000m(distance: $distanceStr)`,
     ({ distance, expected }) => {
       const sutHouseAllowance = new HouseAllowance(distance)
       expect(sutHouseAllowance.getAllowance()).toEqual(expected)
